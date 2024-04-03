@@ -1,0 +1,224 @@
+<!doctype html>
+{% load static %}
+
+<html lang="en">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="next-head-count" content="3">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="shortcut icon" href="{% static 'assets/images/mini-logo-chat-application.png' %}" id="tabIcon">
+    <link rel="icon" href="{% static 'assets/images/mini-logo-chat-application.png' %}" type="image/x-icon">
+    
+    <title> Chat | Login </title>
+
+    <meta name="author" content="Prathmesh Soni"/>
+    <meta name="description" content="A revolutionary new chat application built with Python Django, featuring real-time messaging, a clean UI, and seamless user experience.">
+    <meta name="keywords" content="Chat App, Python Django, Real-time Messaging, Networking, Social Media, Web Development">
+
+    <meta property="og:title" content="Prathmesh Soni"/>
+    <meta property="og:site_name" content="Prathmesh Soni Just Chat Website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:description" content="A revolutionary new chat application built with Python Django, featuring real-time messaging, a clean UI, and seamless user experience.">
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="{% static 'admin/folder/images/pretty-snap-25-09-2023.png' %}"/>
+
+    <!-- glightbox css -->
+    <link rel="stylesheet" href="{% static 'assets/libs/glightbox/css/glightbox.min.css' %}">
+
+    <!-- Nano scroll -->
+    <link rel="stylesheet" href="{% static 'assets/libs/%40simonwep/pickr/themes/nano.min.css' %}"/>
+
+    <!-- swiper css -->
+    <link rel="stylesheet" href="{% static 'assets/libs/swiper/swiper-bundle.min.css' %}">
+
+    <!-- Bootstrap Css -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css"/>
+    
+    <!-- Icons Css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css"/>
+    
+    <!-- App Css-->
+    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css"/>
+</head>
+
+<body>
+<div class="auth-bg">
+    <div class="container p-0">
+        <div class="row justify-content-center g-0">
+            <div class="col-xl-9 col-lg-8">
+                <div class="authentication-page-content shadow-lg">
+                    <div class="d-flex flex-column h-100 px-4 pt-4">
+                        <div class="row justify-content-center">
+                            <div class="col-sm-8 col-lg-6 col-xl-6">
+
+                                <div class="py-md-5 py-4">
+
+                                    <div class="text-center mb-5">
+                                        <h3>Welcome Back !</h3>
+                                        <p class="text-muted">Sign in to continue to chat.</p>
+                                    </div>
+                                    <form class="form" method="POST" id="login_form" onsubmit="login(); return false;">
+                                        {% csrf_token %}
+                                        <div class="mb-3">
+                                            <label for="username" class="form-label">
+                                                Username
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <input class="form-control" type="text" placeholder="Enter Username" id="username" name="username" autofocus>
+                                        </div>
+
+                                        <div class="mb-3">
+                                            <label for="password-input" class="form-label">
+                                                Password
+                                                <span class="text-danger">*</span>
+                                            </label>
+                                            <div class="position-relative auth-pass-inputgroup mb-3">
+                                                <input class="form-control" type="password" placeholder="Enter Password" id="password-input" name="password">
+                                                <button class="btn btn-link position-absolute end-0 top-0 text-decoration-none text-muted" type="button" id="password-addon"><i class="ri-eye-fill align-middle"></i></button>
+                                            </div>
+                                        </div>
+                                        <div class="mb-3" id="main_error" {% if not messages %}style="display: none"{% endif %}  >
+                                            <div class="position-relative auth-pass-inputgroup mb-3">
+                                                <div id="change" style="
+                                                                color: red !important;
+                                                                background-color: #ff5e5929 !important;
+                                                                text-align: center;
+                                                            "
+                                                            class="alert alert-info m-0">
+                                                                {% if messages %}
+                                                                    {% for message in messages %}
+                                                                        <span class="alert-inner--text" id="messege_error" >{{ message|safe }}</span>
+                                                                    {% endfor %}
+                                                                {% endif %}
+                                                    <span class="alert-inner--text" id="login_error"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="ps-0 form-check form-check-info fs-16">
+                                            <div class="float-end">
+                                                <a href="/#Login_Credentials" class="text-danger">
+                                                    Need Login Cridentials?
+                                                </a>
+                                            </div>
+                                        </div>
+
+                                        <div class="text-center mt-4">
+                                            <button class="btn btn-primary w-100" type="submit">Log In</button>
+                                        </div>
+
+                                    </form>
+
+                                    <div class="mt-5 text-center text-muted">
+                                        <a href="/" class="ms-sm-3">
+                                            <span class="fw-medium text-decoration-underline">
+                                                Go Home
+                                            </span>
+                                        </a>
+                                    </div>
+
+                                </div>
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+
+                        <div class="row">
+                            <div class="col-xl-12">
+                                <div class="text-center text-muted p-4">
+                                    <p class="mb-0">&copy;
+                                        Copyright 2024 . <i class="mdi mdi-heart text-danger"></i> DEVELOPED BY 
+                                        <a href="https://prathmeshsoni.works/"  target="_blank">
+                                            PRATHMESH SONI.
+                                        </a>
+                                    </p>
+                                </div>
+                            </div><!-- end col -->
+                        </div><!-- end row -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- end col -->
+        </div>
+        <!-- end row -->
+    </div>
+    <!-- end container-fluid -->
+</div>
+<!-- end auth bg -->
+
+<!-- JAVASCRIPT -->
+<script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+<script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+
+<!-- password addon -->
+<script src="{% static 'assets/js/pages/password-addon.init.js' %}"></script>
+
+<!-- theme-style init -->
+<script src="{% static 'assets/js/pages/theme-style.init.js' %}"></script>
+
+<script src="{% static 'assets/js/app.js' %}"></script>
+
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+
+<script>
+    function login() {
+        $('#login_loader').css('display', 'flex');
+        $.ajax({
+            url: '/login/',
+            method: 'POST',
+            data: $('#login_form').serialize(),
+            dataType: 'JSON',
+            success: function (data) {
+                if (data.status === true) {
+                    $('#main_error').css('display', 'block');
+                    $('#messege_error').css('display', 'none');
+                    if (data.create === "login_success") {
+                        $('#login_error').html(data.msg).css('color', 'green');
+                        $("#change").css('border', '1px green solid !important');
+                        $('#login_form').trigger('reset');
+                        $('#login_loader').css('display', 'none');
+                        setTimeout(function () {
+                            window.location.href = "/";
+                        }, 2000);
+                    }
+                    else{
+                        $('#login_error').html(data.msg).css('color', 'red');
+                        $("#change").css('border', '1px red solid !important');
+                        if (data.create === "not_exist_user") {
+                            $('#password').val('');
+                            $('#username').focus();
+                        }
+                         else if (data.create === "wrong_password") {
+                            $('#password').val('').focus();
+                        }
+                         else{
+                            $('#password').val('');
+                            $('#username').val('').focus();
+                        }
+                         $('#login_loader').css('display', 'none');
+                    }
+
+                }
+                else {
+                    $('#main_error').css('display', 'block');
+                    $('#messege_error').css('display', 'none');
+                    $('#login_error').html('Something is Wrong Try Again...').css('color', 'red');
+                    $("#change").css('border', '1px red solid !important');
+                    $('#login_loader').css('display', 'none');
+                    setTimeout(function () {
+                        window.location.href = "/login/";
+                    }, 2000);
+                }
+            }
+        });
+
+    }
+</script>
+
+</body>
+
+
+</html>

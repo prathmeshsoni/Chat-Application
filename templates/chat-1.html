@@ -1,0 +1,645 @@
+{% extends 'index-1.html' %}
+{% load static %}
+
+{% block title %} Chat with {{ other_user }} {% endblock %}
+
+{% block style %}
+
+{% endblock %}
+
+
+{% block content %}
+    <div class="{% if admin %}user-chat w-100 overflow-hidden user-chat-show{% else %}user-chat w-100 overflow-hidden{% endif %}">
+
+        <div class="chat-content d-lg-flex">
+            <!-- start chat conversation section -->
+            <div class="w-100 overflow-hidden position-relative">
+                <!-- conversation user -->
+                <div id="users-chat" class="position-relative">
+                    <div class="py-3 user-chat-topbar">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 col-8">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 d-block d-lg-none me-3">
+                                        <a href="/"
+                                           class="btn btn-primary user-chat-remove fs-18 p-1"><i
+                                                class="bx bx-chevron-left align-middle"></i></a>
+                                    </div>
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 chat-user-img online user-own-img align-self-center me-3 ms-0">
+                                                <img src="https://cse-aiml.live/static/assets/img/profile_demo.jpg"
+                                                     class="rounded-circle avatar-sm" alt="">
+                                                <!-- <span class="user-status"></span> -->
+                                            </div>
+                                            <div class="flex-grow-1 overflow-hidden">
+                                                <h6 class="text-truncate mb-0 fs-15 color-dark">
+                                                    <a href="#" class="user-profile-show text-reset">
+                                                        {{ other_user }}
+                                                    </a>
+                                                </h6>
+                                                <!-- <p class="text-truncate text-muted mb-0"><small>Online</small></p> -->
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-4">
+                                <ul class="list-inline user-chat-nav text-end mb-0">
+                                    <li class="list-inline-item">
+                                        <div class="dropdown">
+                                            <button class="btn nav-btn dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <i class='bx bx-dots-vertical-rounded'></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item d-flex justify-content-between align-items-center user-profile-show"
+                                                   href="#">View Profile <i class="bx bx-user text-muted"></i></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+                    </div>
+                    <!-- end chat user head -->
+
+                    <!-- start chat conversation -->
+
+                    <div class="chat-conversation p-3 p-lg-4 " id="chat-conversation" data-simplebar>
+                        <ul class="list-unstyled chat-conversation-list" id="users-conversation">
+                            {% for user_message in user_messages %}
+                                <li class="chat-list {% if request.user == user_message.sender %}right{% else %}left{% endif %}"
+                                    id="msg-{{ user_message.id }}">
+                                    <div class="conversation-list" bis_skin_checked="1">
+                                        {% if not request.user == user_message.sender %}
+                                            <div class="chat-avatar" bis_skin_checked="1">
+                                                <img src="https://cse-aiml.live/static/assets/img/profile_demo.jpg"
+                                                     alt="">
+                                            </div>
+                                        {% endif %}
+                                        <div class="user-chat-content" bis_skin_checked="1">
+                                            <div class="ctext-wrap" bis_skin_checked="1">
+                                                <div class="ctext-wrap-content" id="1" bis_skin_checked="1">
+                                                    <p class="mb-0 ctext-content"
+                                                       id="user-message-{{ user_message.pk }}">
+                                                        {{ user_message.message|safe }}
+                                                    </p>
+
+                                                </div>
+                                                <div class="align-self-start message-box-drop d-flex"
+                                                     bis_skin_checked="1">
+                                                    <div class="dropdown" bis_skin_checked="1">
+                                                        <a class="dropdown-toggle" href="#" role="button"
+                                                           data-bs-toggle="dropdown" aria-haspopup="true"
+                                                           aria-expanded="false">
+                                                            <i class="ri-more-2-fill"></i>
+                                                        </a>
+                                                        <div class="dropdown-menu" bis_skin_checked="1">
+                                                            <a class="dropdown-item d-flex align-items-center justify-content-between copy-messages"
+                                                               href="#" id="copy-message-0" onclick="copy({{ user_message.id }})">
+                                                                Copy
+                                                                <i class="bx bx-copy text-muted ms-2"></i>
+                                                            </a>
+{#                                                            <a class="dropdown-item d-flex align-items-center justify-content-between"#}
+{#                                                                    href="#" data-bs-toggle="collapse" data-bs-target=".replyCollapse">#}
+{#                                                                    Reply <i class="bx bx-share ms-2 text-muted"></i>#}
+{#                                                            </a>#}
+                                                            {% if request.user == user_message.sender and user_message.deleted == False  %}
+                                                                 <a class="dropdown-item d-flex align-items-center justify-content-between delete-item"
+                                                                   onclick="delete_message({{ user_message.id }})" href="#">
+                                                                    Delete
+                                                                    <i class="bx bx-trash text-muted ms-2"></i>
+                                                                 </a>
+                                                            {% endif %}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="conversation-name" bis_skin_checked="1">
+                                                <small class="text-muted time">
+                                                    {{ user_message.date_created }}
+                                                </small>
+                                                <span class="text-success">
+                                                    {% if user_message.deleted == True %}
+                                                        <i class="bx bx-trash ms-2"></i>
+                                                    {% endif %}
+                                                </span>
+                                                <span class="text-success check-message-icon">
+                                                    {% if user_message.seen %}
+                                                        {{ user_message.seen_at }}
+                                                        <i class="bx bx-check-double"></i>
+                                                    {% else %}
+                                                        <i class="bx bx-check"></i>
+                                                    {% endif %}
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-warning alert-dismissible copyclipboard-alert px-4 fade show"
+                         id="copyClipBoard" role="alert">
+                        Message copied
+                    </div>
+                    <!-- end chat conversation end -->
+                </div>
+
+                <!-- conversation group -->
+                <div id="channel-chat" class="position-relative">
+                    <div class="py-3 user-chat-topbar">
+                        <div class="row align-items-center">
+                            <div class="col-sm-4 col-8">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 d-block d-lg-none me-3">
+                                        <a href="/"
+                                           class="btn btn-primary user-chat-remove fs-18 p-1"><i
+                                                class="bx bx-chevron-left align-middle"></i></a>
+                                    </div>
+                                    <div class="flex-grow-1 overflow-hidden">
+                                        <div class="d-flex align-items-center">
+                                            <div class="flex-shrink-0 chat-user-img online user-own-img align-self-center me-3">
+                                                <img src=""
+                                                     class="rounded-circle avatar-sm" alt="">
+                                            </div>
+                                            <div class="flex-grow-1 overflow-hidden">
+                                                <h6 class="text-truncate mb-0 fs-15"
+                                                    style="color: black !important;"><a
+                                                        href="#"
+                                                        class="user-profile-show text-reset">
+                                                    Design
+                                                    Phase 2</a></h6>
+                                                <p class="text-truncate text-muted mb-0"><small>147 Members</small>
+                                                </p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 col-4">
+                                <ul class="list-inline user-chat-nav text-end mb-0">
+                                    <li class="list-inline-item d-none d-lg-inline-block me-2 ms-0">
+                                        <button type="button" class="btn nav-btn user-profile-show">
+                                            <i class='bx bxs-info-circle'></i>
+                                        </button>
+                                    </li>
+
+                                    <li class="list-inline-item">
+                                        <div class="dropdown">
+                                            <button class="btn nav-btn dropdown-toggle" type="button"
+                                                    data-bs-toggle="dropdown" aria-haspopup="true"
+                                                    aria-expanded="false">
+                                                <i class='bx bx-dots-vertical-rounded'></i>
+                                            </button>
+                                            <div class="dropdown-menu dropdown-menu-end">
+                                                <a class="dropdown-item d-flex justify-content-between align-items-center d-lg-none user-profile-show"
+                                                   href="#">View Profile <i class="bx bx-user text-muted"></i></a>
+                                            </div>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- end chat user head -->
+
+                    <!-- start chat conversation -->
+
+                    <div class="chat-conversation p-3 p-lg-4" id="chat-conversation" data-simplebar>
+                        <ul class="list-unstyled chat-conversation-list" id="channel-conversation">
+                        </ul>
+                    </div>
+                    <div class="alert alert-warning alert-dismissible copyclipboard-alert px-4 fade show "
+                         id="copyClipBoardChannel" role="alert">
+                        message copied
+                    </div>
+                    <!-- end chat conversation end -->
+                </div>
+
+                <!-- start chat input section -->
+                <div class="position-relative">
+                    <div class="chat-input-section p-4 border-top">
+
+                        <div class="row g-0 align-items-center">
+                            <div class="col">
+                                <div class="position-relative">
+                                    <div class="chat-input-feedback">
+                                        Please Enter a Message
+                                    </div>
+                                    <input autocomplete="off" type="text"
+                                           class="form-control  bg-light border-0 chat-input" autofocus
+                                           id="chat-input" placeholder="Type your message...">
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <div class="chat-input-links ms-2 gap-md-1">
+                                    <div class="links-list-item">
+                                        <button type="button"
+                                                id="message-send-btn"
+                                                class="btn btn-primary btn-lg chat-send waves-effect waves-light"
+                                                data-bs-toggle="collapse"
+                                                data-bs-target=".chat-input-collapse1.show">
+                                            <i class="bx bxs-send align-middle" id="submit-btn"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="chat-input-collapse chat-input-collapse1 collapse" id="chatinputmorecollapse">
+                            <div class="card mb-0">
+                                <div class="card-body py-3">
+                                    <!-- Swiper -->
+                                    <div class="swiper chatinput-links">
+                                        <div class="swiper-wrapper">
+                                            <div class="swiper-slide">
+                                                <div class="text-center px-2 position-relative">
+                                                    <div>
+                                                        <input id="attachedfile-input" type="file" class="d-none"
+                                                               accept=".zip,.rar,.7zip,.pdf" multiple>
+                                                        <label for="attachedfile-input"
+                                                               class="avatar-sm mx-auto stretched-link">
+                                                            <span class="avatar-title fs-18 bg-primary-subtle  text-primary  text-primary rounded-circle">
+                                                                <i class="bx bx-paperclip"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <h5 class="fs-11 text-uppercase mt-3 mb-0 text-body text-truncate">
+                                                        Attached</h5>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="text-center px-2">
+                                                    <div class="avatar-sm mx-auto">
+                                                        <div class="avatar-title fs-18 bg-primary-subtle
+ text-primary  text-primary rounded-circle">
+                                                            <i class="bx bxs-camera"></i>
+                                                        </div>
+                                                    </div>
+                                                    <h5 class="fs-11 text-uppercase text-truncate mt-3 mb-0"><a
+                                                            href="#"
+                                                            class="text-body stretched-link"
+                                                            onclick="cameraPermission()">Camera</a>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="text-center px-2 position-relative">
+                                                    <div>
+                                                        <input id="galleryfile-input" type="file" class="d-none"
+                                                               accept="image/png, image/gif, image/jpeg" multiple>
+                                                        <label for="galleryfile-input"
+                                                               class="avatar-sm mx-auto stretched-link">
+                                                            <span class="avatar-title fs-18 bg-primary-subtle
+ text-primary  text-primary rounded-circle">
+                                                                <i class="bx bx-images"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <h5 class="fs-11 text-uppercase text-truncate mt-3 mb-0">Gallery
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="text-center px-2">
+                                                    <div>
+                                                        <input id="audiofile-input" type="file" class="d-none"
+                                                               accept="audio/*" multiple>
+                                                        <label for="audiofile-input"
+                                                               class="avatar-sm mx-auto stretched-link">
+                                                            <span class="avatar-title fs-18 bg-primary-subtle
+ text-primary  text-primary rounded-circle">
+                                                                <i class="bx bx-headphone"></i>
+                                                            </span>
+                                                        </label>
+                                                    </div>
+                                                    <h5 class="fs-11 text-uppercase text-truncate mt-3 mb-0">
+                                                        Audio</h5>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="text-center px-2">
+                                                    <div class="avatar-sm mx-auto">
+                                                        <div class="avatar-title fs-18 bg-primary-subtle
+ text-primary  text-primary rounded-circle">
+                                                            <i class="bx bx-current-location"></i>
+                                                        </div>
+                                                    </div>
+
+                                                    <h5 class="fs-11 text-uppercase text-truncate mt-3 mb-0"><a
+                                                            href="#"
+                                                            class="text-body stretched-link"
+                                                            onclick="getLocation()">Location</a>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                            <div class="swiper-slide">
+                                                <div class="text-center px-2">
+                                                    <div class="avatar-sm mx-auto">
+                                                        <div class="avatar-title fs-18 bg-primary-subtle
+ text-primary  text-primary rounded-circle">
+                                                            <i class="bx bxs-user-circle"></i>
+                                                        </div>
+                                                    </div>
+                                                    <h5 class="fs-11 text-uppercase text-truncate mt-3 mb-0"><a
+                                                            href="#"
+                                                            class="text-body stretched-link"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target=".contactModal">Contacts</a>
+                                                    </h5>
+                                                </div>
+                                            </div>
+
+                                            <div class="swiper-slide d-block d-sm-none">
+                                                <div class="text-center px-2">
+                                                    <div class="avatar-sm mx-auto">
+                                                        <div class="avatar-title fs-18 bg-primary-subtle
+ text-primary  text-primary rounded-circle">
+                                                            <i class="bx bx-microphone"></i>
+                                                        </div>
+                                                    </div>
+                                                    <h5 class="fs-11 text-uppercase text-truncate mt-3 mb-0"><a
+                                                            href="#"
+                                                            class="text-body stretched-link">Audio</a>
+                                                    </h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="replyCard">
+                        <div class="card mb-0">
+                            <div class="card-body py-3">
+                                <div class="replymessage-block mb-0 d-flex align-items-start">
+                                    <div class="flex-grow-1">
+                                        <h5 class="conversation-name"></h5>
+                                        <p class="mb-0"></p>
+                                    </div>
+                                    <div class="flex-shrink-0">
+                                        <button type="button" id="close_toggle"
+                                                class="btn btn-sm btn-link mt-n2 me-n3 fs-18">
+                                            <i class="bx bx-x align-middle"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- end chat input section -->
+            </div>
+            <!-- end chat conversation section -->
+
+            <!-- start User profile detail sidebar -->
+            <div class="user-profile-sidebar">
+
+                <div class="p-3 border-bottom">
+                    <div class="user-profile-img">
+                        <img src="https://cse-aiml.live/static/assets/img/profile_demo.jpg" class="profile-img rounded" alt="">
+                        <div class="overlay-content rounded">
+                            <div class="user-chat-nav p-2">
+                                <div class="d-flex w-100">
+                                    <div class="flex-grow-1">
+                                        <button type="button"
+                                                class="btn nav-btn text-white user-profile-show d-none d-lg-block">
+                                            <i class="bx bx-x"></i>
+                                        </button>
+                                        <button type="button"
+                                                class="btn nav-btn text-white user-profile-show d-block d-lg-none">
+                                            <i class="bx bx-left-arrow-alt"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="mt-auto p-3">
+                                <h5 class="user-name mb-0 text-truncate">{{ other_user }}</h5>
+                                <p class="fs-14 text-truncate user-profile-status mt-1 mb-0">
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- End profile user -->
+
+                <!-- Start user-profile-desc -->
+                <div class="p-4 user-profile-desc" data-simplebar>
+                    <div class="pb-4 border-bottom border-bottom-dashed mb-4">
+                        <h5 class="fs-12 text-muted text-uppercase mb-2">Info :</h5>
+                        <div class="d-flex align-items-center">
+                            <div class="flex-shrink-0">
+                                <i class="ri-user-line align-middle fs-15 text-muted"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="fs-14 text-truncate mb-0"> {{ other_user }} </h5>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="flex-shrink-0">
+                                <i class="ri-user-line align-middle fs-15 text-muted"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="fs-14 text-truncate mb-0"> {{ other_user.first_name }} {{ other_user.last_name }} </h5>
+                            </div>
+                        </div>
+                        
+                        <div class="d-flex align-items-center mt-3">
+                            <div class="flex-shrink-0">
+                                <i class="ri-mail-line align-middle fs-15 text-muted"></i>
+                            </div>
+                            <div class="flex-grow-1 ms-3">
+                                <h5 class="fs-14 text-truncate mb-0">{{ other_user.email }}</h5>
+                            </div>
+                        </div>
+                        
+                    </div>
+
+                </div>
+                <!-- end user-profile-desc -->
+            </div>
+            <!-- end User profile detail sidebar -->
+        </div>
+        <!-- end user chat content -->
+    </div>
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        window.onload = function () {
+
+        }
+    </script>
+    <script>
+        function copy(message){
+            var copyText = document.getElementById("user-message-" + message);
+            navigator.clipboard.writeText(copyText.innerText);
+            document.getElementById("copyClipBoard").innerText = "Message copied";
+            document.getElementById("copyClipBoard").style.display = "block",
+                setTimeout(function () {
+                    document.getElementById("copyClipBoard").style.display = "none"
+                }, 1e3)
+        }
+
+        function delete_message(id){
+            $.ajax({
+                url: "/delete/",
+                type: "POST",
+                data: {
+                    "message_id": id,
+                    "csrfmiddlewaretoken": "{{ csrf_token }}",
+                },
+                success: function (data) {
+                    $("#msg-" + id).remove();
+                    document.getElementById("copyClipBoard").innerText = "Message deleted";
+                    document.getElementById("copyClipBoard").style.display = "block",
+                    setTimeout(function () {
+                        document.getElementById("copyClipBoard").style.display = "none"
+                    }, 1e3)
+                }
+            });
+        }
+
+    </script>
+    <script defer async>
+        function x() {
+            var e = 12 <= (new Date).getHours() ? "pm" : "am",
+                t = 12 < (new Date).getHours() ? (new Date).getHours() % 12 : (new Date).getHours(),
+                a = (new Date).getMinutes() < 10 ? "0" + (new Date).getMinutes() : (new Date).getMinutes();
+            return t < 10 ? "0" + t + ":" + a + " " + e : t + ":" + a + " " + e
+        }
+
+        let message_send_btn = document.getElementById("message-send-btn");
+        let message_input = document.getElementById("chat-input");
+        let interval = 0;
+        let load_counter = 0;
+        let current_interval = 2000;
+
+        function send_message() {
+            message = message_input.value;
+            if (message === "") {
+                return;
+            }
+            message.replaceAll('\n', '\n\n');
+            message_input.value = "";
+            fetch("/ajax/{{ other_user }}/", {
+                method: 'POST',
+                credentials: 'same-origin',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': "{{ csrf_token }}",
+                },
+                body: JSON.stringify({ "message": message })
+            }).then(e => e.json()).then(messages => {
+                for (message of messages) {
+                    construct_message(message);
+                }
+            }).catch(e => {console.log(e); alert("There was an error sending your message.")});
+        }
+
+        function load_messages() {
+            fetch("/ajax/{{ other_user }}/").then(e => e.json()).then(messages => {
+                if (messages.length > 0) {
+                    if (current_interval > 2000) {
+                        current_interval = 2000;
+                        load_counter = 0;
+                        clearInterval(interval);
+                        interval = setInterval(load_messages, current_interval);
+                    }
+
+                } else {
+                    load_counter++;
+                    if (load_counter > 2) {
+                        if (current_interval < 5000) {
+                            current_interval = current_interval + 1000;
+                        }
+                        clearInterval(interval)
+                        interval = setInterval(load_messages, current_interval);
+                    }
+                }
+                for (message of messages) {
+                    construct_message(message);
+                }
+            }).catch(e => console.log(e));
+        }
+
+        function construct_message(message) {
+            var user_message_container = construct_structure(message);
+            let chat_panel = document.getElementById("users-conversation");
+            chat_panel.innerHTML += user_message_container;
+            scrolll();
+        }
+
+        function scrolll() {
+            var e = document.querySelector("#chat-conversation .simplebar-content-wrapper");
+            e.scrollTop = e.scrollHeight
+        }
+
+        message_send_btn.addEventListener("click", send_message)
+        message_input.addEventListener("keydown", (e) => {
+            if (e.key === 'Enter') {
+                send_message();
+            }
+        });
+
+        {% if not other_user.username|lower == request.user.username|lower %}
+            interval = setInterval(load_messages, current_interval);
+        {% endif %}
+
+        function construct_structure(message) {
+            var html = '';
+            if (message["sent"] == false) {
+                    html += '<li class="chat-list left" id="msg-' + message['id'] + '">';
+                } else {
+                    html += '<li class="chat-list right" id="msg-' + message['id'] + '">';
+                }
+                html += '<div class="conversation-list">';
+                if (message["sent"] == false) {
+                    html += '<div class="chat-avatar">';
+                    html += '<img src="https://cse-aiml.live/static/assets/img/profile_demo.jpg" alt="">';
+                    html += '</div>';
+                }
+                html += '<div class="user-chat-content">';
+                html += '<div class="ctext-wrap">';
+                html += '<div class="ctext-wrap-content" id="1">';
+                html += '<p class="mb-0 ctext-content" id="user-message-' + message['id'] + '">';
+                html += '' + message["message"] + '';
+                html += '</p>';
+                html += '</div>';
+                html += '<div class="align-self-start message-box-drop d-flex">';
+                html += '<div class="dropdown">';
+                html += '<a class="dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">';
+                html += '<i class="ri-more-2-fill"></i>';
+                html += '</a>';
+                html += '<div class="dropdown-menu">';
+                html += '<a class="dropdown-item d-flex align-items-center justify-content-between copy-message" href="#" id="copy-message-0" onclick="copy(' + message['id'] + ')" >';
+                html += 'Copy <i class="bx bx-copy text-muted ms-2"></i>';
+                html += '</a>';
+                if (message["sent"] == true) {
+                     html += '<a class="dropdown-item d-flex align-items-center justify-content-between delete-item" onclick="delete_message(' + message['id'] + ')" href="#">';
+                     html += 'Delete <i class="bx bx-trash text-muted ms-2"></i>';
+                     html += '</a>';
+                }
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+                html += '<div class="conversation-name">';
+                html += '<small class="text-muted time">';
+                html += '' + x(); '';
+                html += '</small>';
+                html += '</div>';
+                html += '</div>';
+                html += '</div>';
+                html += '</li>';
+            return html;
+        }
+    </script>
+{% endblock %}

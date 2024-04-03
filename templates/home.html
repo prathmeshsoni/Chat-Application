@@ -1,0 +1,323 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="shortcut icon" href="{% static 'assets/images/mini-logo-chat-application.png' %}" id="tabIcon">
+    <link rel="icon" href="{% static 'assets/images/mini-logo-chat-application.png' %}" type="image/x-icon">
+    
+    <title>Chat Application</title>
+
+    <meta name="author" content="Prathmesh Soni"/>
+    <meta name="description" content="A revolutionary new chat application built with Python Django, featuring real-time messaging, a clean UI, and seamless user experience.">
+    <meta name="keywords" content="Chat App, Python Django, Real-time Messaging, Networking, Social Media, Web Development">
+
+    <meta property="og:title" content="Prathmesh Soni"/>
+    <meta property="og:site_name" content="Prathmesh Soni Just Chat Website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:description" content="A revolutionary new chat application built with Python Django, featuring real-time messaging, a clean UI, and seamless user experience.">
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="{% static 'admin/folder/images/pretty-snap-25-09-2023.png' %}"/>
+
+    <!-- Bootstrap css -->
+    <link href="{% static 'assets/home/bootstrap.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Unicon Css -->
+    <link href="{% static 'assets/home/bootstrap-icons.css' %}" rel="stylesheet" type="text/css" />
+
+    <!-- Custom Css -->
+    <link href="{% static 'assets/home/style.min.css' %}" rel="stylesheet" type="text/css" />
+
+    <link rel="stylesheet"
+          href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+
+</head>
+
+<body data-bs-spy="scroll" data-bs-target=".navbar" data-bs-offset="51">
+
+    <!--Navbar Start-->
+    <nav class="navbar navbar-expand-lg fixed-top sticky" id="navbar">
+        <div class="container">
+            <!-- LOGO -->
+            <a class="navbar-brand logo text-uppercase" target="_blank" href="javascript:void(0)">
+                <img src="{% static 'assets/images/logo-chat-application.png' %}" class="logo-light" alt="logo-light" height="55">
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse"
+                aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+                <i class="bi bi-list text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav ms-auto navbar-center">
+                    <li class="nav-item">
+                        <a href="#home" class="nav-link">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#features" class="nav-link">Features</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#Tech_Stack" class="nav-link">Tech Stack</a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/login/" class="nav-link">Login</a>
+                    </li>
+                </ul>
+            </div>
+            <!--end navabar-collapse-->
+        </div>
+        <!--end container-->
+    </nav>
+    <!-- Navbar End -->
+
+    <!-- START HOME -->
+    <section class="bg-home2" id="home">
+        <div class="bg-overlay"></div>
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="text-center">
+                        <h1 class="text-white mb-4"> Chat Application </h1>
+                        <p class="text-white-50 fs-17">
+                            A dynamic web platform revolutionizing communication, offering vibrant group 
+                            chats and personalized to-do list-driven conversations in a modern, user-friendly interface.
+                        </p>
+
+                        <div class="mt-4 pt-2">
+                            <a href="/login/" class="btn btn-success ms-2">Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- START SHAPE -->
+    <div class="position-relative">
+        <div class="shape">
+            <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink"
+                width="1440" height="150" preserveAspectRatio="none" viewBox="0 0 1440 150">
+                <g mask="url(&quot;#SvgjsMask1022&quot;)" fill="none">
+                    <path d="M 0,58 C 144,73 432,131.8 720,133 C 1008,134.2 1296,77.8 1440,64L1440 250L0 250z"
+                        fill="rgba(255, 255, 255, 1)"></path>
+                </g>
+                <defs>
+                    <mask id="SvgjsMask1022">
+                        <rect width="1440" height="250" fill="#ffffff"></rect>
+                    </mask>
+                </defs>
+            </svg>
+        </div>
+    </div>
+    <!-- END SHAPE -->
+
+    <!-- START FEATURE -->
+    <!-- <div class="container">
+        <div class="bg-feature">
+            <div class="row justify-content-center">
+                <div class="col-lg-6 col-md-6">
+                    <div class="mt-5">
+                        <img src="https://cdn.simpleicons.org/python/70a5fd" alt="" height="60" class="rounded shadow mx-1 my-2">
+                        <img src="images/logo/html5.png" alt="" height="60" class="rounded shadow mx-1 my-2">
+                        <img src="images/logo/css3.png" alt="" height="60" class="rounded shadow mx-1 my-2">
+                        <img src="images/logo/sass.png" alt="" height="60" class="rounded shadow mx-1 my-2">
+                        <img src="images/logo/gulp.png" alt="" height="60" class="rounded shadow mx-1 my-2">
+                        <img src="images/logo/yarn.png" alt="" height="60" class="rounded shadow mx-1 my-2">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+    <!--end container-->
+    <!-- END FEATURE -->
+
+    <!-- START SERVICE -->
+    <section class="section" id="features">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-7">
+                    <div class="header-title text-center">
+                        <p class="text-uppercase text-muted mb-2">Key Features</p>
+                        <h3>Empowering Conversations, Enhancing Collaboration</h3>
+                        <div class="title-border mt-3"></div>
+                        <p class="text-muted mt-3">Chat Application goes beyond standard communication tools. With both group chat and personalized to-do lists, it's designed to be a versatile platform for seamless collaboration and effective task management.</p>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+    
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="bi bi-people fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">Group Chat</h5>
+                        <div class="lighlight-border mt-3"></div>
+                        <p class="text-muted mt-3 mb-0">Engage in lively discussions and collaboration with the convenience of group chat functionality.</p>
+                    </div>
+                </div>
+                <!--end col-->
+    
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="bi bi-chat-left-dots fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">Personal Chat with To-Do Lists</h5>
+                        <div class="lighlight-border mt-3"></div>
+                        <p class="text-muted mt-3 mb-0">Elevate one-on-one communication with integrated to-do lists, adding a practical touch to personal conversations.</p>
+                    </div>
+                </div>
+                <!--end col-->
+    
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="bi bi-arrow-repeat fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">Real-Time Chat Loading with AJAX</h5>
+                        <div class="lighlight-border mt-3"></div>
+                        <p class="text-muted mt-3 mb-0">Experience instantaneous chat loading without page refresh, ensuring a fluid and uninterrupted user experience.</p>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+            
+            <div class="row justify-content-center pt-5" id="Login_Credentials">
+                <div class="col-lg-7">
+                    <div class="header-title text-center">
+                        <h3>User Login Credentials</h3>
+                        <div class="title-border mt-3"></div>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+    
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="bi bi-person-circle fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">User 1</h5>
+                        <div class="lighlight-border mt-3"></div>
+                        <p class="text-muted mt-3 mb-0">Username: User_1<br>Password: User@1234</p>
+                    </div>
+                </div>
+                <!--end col-->
+    
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="bi bi-person-circle fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">User 2</h5>
+                        <div class="lighlight-border mt-3"></div>
+                        <p class="text-muted mt-3 mb-0">Username: User_2<br>Password: User@1234</p>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end -->
+
+            <div class="row justify-content-center pt-5" id="Tech_Stack">
+                <div class="col-lg-7">
+                    <div class="header-title text-center">
+                        <h3>Tech Stack</h3>
+                        <div class="title-border mt-3"></div>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+
+            <div class="row">
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="fab fa-python fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">Python & Django</h5>
+                    </div>
+                </div>
+                <!--end col-->
+    
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="fas fa-code fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">HTML, CSS, & Bootstrap</h5>
+                    </div>
+                </div>
+                <!--end col-->
+    
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="fab fa-js fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">JavaScript, jQuery, & AJAX</h5>
+                    </div>
+                </div>
+                <!--end col-->
+    
+                <div class="col-lg-4 col-md-6">
+                    <div class="service-box text-center mt-4">
+                        <i class="fas fa-database fs-40 text-primary"></i>
+                        <h5 class="fs-18 mt-4">MySQL</h5>
+                    </div>
+                </div>
+                <!--end col-->
+            </div>
+            <!--end row-->
+        </div>
+        <!--end container-->
+    </section>
+    
+    <!-- END SERVICE -->
+
+    <!-- FOOTER-ALT -->
+    <div class="footer py-3">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="main-footer__upper pe-3">
+                    <div class="float-end pull-none">
+                        <ul class="list-unstyled text-sm-end social-icon social mb-0">                            
+                            <li class="list-inline-item mb-0"><a href="https://github.com/PrathmeshSoni/Chat-Application/"
+                                    target="_blank" class="rounded"><i class="fas fa-code" title="Source Code"></i></a>
+                            </li>
+                            <li class="list-inline-item mb-0"><a href="https://private-app.prathmeshsoni.works/view/116"
+                                target="_blank" class="rounded"><i class="fas fa-eye" title="Snap Shots"></i></a>
+                            </li>
+                            <li class="list-inline-item mb-0"><a href="https://prathmeshsoni.works/project/"
+                                    target="_blank" class="rounded"><i class="fab fa-chrome" title="Prathmesh Soni's Project"></i></a>
+                            </li>
+                            <li class="list-inline-item mb-0"><a href="mailto:connect.prathmeshsoni@gmail.com" target="_blank"
+                                    class="rounded"><i class="fas fa-envelope" title="Mail"></i></a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="main-footer__lower">
+                    <!-- <div class="float-start pull-none"> -->
+                        <!-- <p class="text-white-50 mb-0"> -->
+                            © Copyright <script>document.write(new Date().getFullYear())</script> Made by <a
+                                href="https://prathmeshsoni.works" target="_blank" rel="noreferrer" class="text-decoration-underline">Prathmesh Soni</a>
+                        <!-- </p> -->
+                    <!-- </div> -->
+
+                </div>
+                <!-- end col -->
+            </div>
+            <!-- end row -->
+        </div>
+        <!--end container-->
+    </div>
+    <!-- END FOOTER-ALT -->
+
+    <!--start back-to-top-->
+    <button onclick="topFunction()" id="back-to-top">
+        <i class="bi bi-arrow-up fs-15"></i>
+    </button>
+    <!--end back-to-top-->
+
+    <!-- Bootstrap Js -->
+    <script src="{% static 'assets/home/bootstrap.bundle.min.js' %}"></script>
+
+    <!-- App Js -->
+    <script src="{% static 'assets/home/app.js' %}"></script>
+
+</body>
+
+
+</html>

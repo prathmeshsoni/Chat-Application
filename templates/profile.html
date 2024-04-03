@@ -1,0 +1,89 @@
+{% extends 'index-1.html' %}
+{% load static %}
+{% block title %} Profile {% endblock %}
+
+{% block profile %}
+    <div class="tab-pane active" id="pills-setting" role="tabpanel" aria-labelledby="pills-setting-tab">
+        <!-- Start Settings content -->
+        <div>
+            <div class="user-profile-img">
+                <img src="{% static 'assets/images/profile_demo.jpg' %}" class="profile-img profile-foreground-img"
+                     style="height: 160px;" alt="">
+                <div class="overlay-content">
+                    <div>
+                        <div class="user-chat-nav p-3">
+
+                            <div class="d-flex w-100 align-items-center">
+                                <div class="flex-grow-1">
+                                    <h5 class="text-white mb-0">Profile</h5>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="text-center p-3 p-lg-4 border-bottom pt-2 pt-lg-2 mt-n5 position-relative">
+                <div class="mb-3 profile-user">
+                    <img src="{% static 'assets/images/profile_demo.jpg' %}"
+                         class="rounded-circle avatar-lg img-thumbnail user-profile-image"
+                         alt="user-profile-image">
+
+                </div>
+
+                <h5 class="fs-16 text-truncate"></h5>
+            </div>
+            <!-- End profile user -->
+
+            <!-- Start User profile description -->
+            <div class="user-setting" data-simplebar>
+                <div id="settingprofile" class="accordion accordion-flush">
+                    <div class="accordion-item">
+                        <div class="accordion-header" id="headerpersonalinfo">
+                            <a class="accordion-button fs-14 fw-medium" data-bs-toggle="collapse"
+                               href="#personalinfo" aria-expanded="true" aria-controls="personalinfo">
+                                <div class="d-flex align-items-center">
+                                    <div class="flex-shrink-0 me-3 avatar-xs">
+                                        <div class="avatar-title bg-info-subtle
+                         text-info text-info rounded">
+                                            <i class="bx bxs-user"></i>
+                                        </div>
+                                    </div>
+                                    Personal Info
+                                </div>
+                            </a>
+                        </div>
+                        <div id="personalinfo" class="accordion-collapse collapse show"
+                             aria-labelledby="headerpersonalinfo" data-bs-parent="#settingprofile">
+                            <div class="accordion-body edit-input">
+                                <div class="float-end">
+                                    <a href="#" class="badge bg-light text-muted" id="user-profile-edit-btn">
+                                    </a>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <label for="Name" class="form-label text-muted fs-13">Name</label>
+                                    <input type="text" class="form-control" id="Name" name="Name"
+                                           value="{{ request.user.first_name }} {{ request.user.last_name }}" placeholder="Enter Enrollment Number" disabled>
+                                </div>
+                                
+                                <div class="mb-2">
+                                    <label for="username" class="form-label text-muted fs-13">Username</label>
+                                    <input type="text" class="form-control" id="username" name="username"
+                                           value="{{ request.user.username }}" placeholder="Enter name" disabled>
+                                </div>
+
+                                <div class="mb-2">
+                                    <label for="email" class="form-label text-muted fs-13">Email</label>
+                                    <input type="email" class="form-control" id="email" name="email"
+                                           value="{{ request.user.email }}" placeholder="Enter email" disabled>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Start Settings content -->
+    </div>
+{% endblock %}

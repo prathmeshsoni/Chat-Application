@@ -1,0 +1,282 @@
+{% load static %}
+{% load humanize %}
+
+<!doctype html>
+<html lang="en" style="--bs-primary-rgb: 80, 165, 241;">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="next-head-count" content="3">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <link rel="shortcut icon" href="{% static 'assets/images/mini-logo-chat-application.png' %}" id="tabIcon">
+    <link rel="icon" href="{% static 'assets/images/mini-logo-chat-application.png' %}" type="image/x-icon">
+    
+    <title> {% block title %} {% endblock %}</title>
+    
+
+    <meta name="author" content="Prathmesh Soni"/>
+    <meta name="description" content="A revolutionary new chat application built with Python Django, featuring real-time messaging, a clean UI, and seamless user experience.">
+    <meta name="keywords" content="Chat App, Python Django, Real-time Messaging, Networking, Social Media, Web Development">
+
+    <meta property="og:title" content="Prathmesh Soni"/>
+    <meta property="og:site_name" content="Prathmesh Soni Just Chat Website"/>
+    <meta property="og:url" content=""/>
+    <meta property="og:description" content="A revolutionary new chat application built with Python Django, featuring real-time messaging, a clean UI, and seamless user experience.">
+    <meta property="og:type" content="website"/>
+    <meta property="og:image" content="{% static 'admin/folder/images/pretty-snap-25-09-2023.png' %}"/>
+
+    <!-- glightbox css -->
+    <link rel="stylesheet" href="{% static 'assets/libs/glightbox/css/glightbox.min.css' %}">
+
+    <!-- Nano scroll -->
+    <link rel="stylesheet" href="{% static 'assets/libs/%40simonwep/pickr/themes/nano.min.css' %}"/>
+
+    <!-- swiper css -->
+    <link rel="stylesheet" href="{% static 'assets/libs/swiper/swiper-bundle.min.css' %}">
+
+    <!-- Bootstrap Css -->
+    <link href="{% static 'assets/css/bootstrap.min.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css"/>
+    
+    <!-- Icons Css -->
+    <link href="{% static 'assets/css/icons.min.css' %}" rel="stylesheet" type="text/css"/>
+    
+    <!-- App Css-->
+    <link href="{% static 'assets/css/app.min.css' %}" id="app-style" rel="stylesheet" type="text/css"/>
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css">
+    
+    <script defer src="https://use.fontawesome.com/releases/5.15.4/js/fontawesome.js"
+            integrity="sha384-dPBGbj4Uoy1OOpM4+aRGfAOc0W37JkROT+3uynUgTHZCHZNMHfGXsmmvYTffZjYO"
+            crossorigin="anonymous"></script>
+
+    <style>
+
+        @media (max-width: 992px) {
+            .color-dark {
+                color: black !important;
+            }
+        }
+
+        {% block style %}
+
+        {% endblock %}
+
+    </style>
+
+</head>
+
+<body data-bs-theme="dark">
+
+<div class="layout-wrapper d-lg-flex">
+
+    <!-- Start left sidebar-menu -->
+    <div class="side-menu flex-lg-column">
+        <!-- LOGO -->
+        <div class="navbar-brand-box">
+            <a href="/" class="logo logo-dark">
+                <span class="logo-sm">
+                    <img src="{% static 'assets/images/mini-logo-chat-application.png' %}" alt="logo" height="45" style="mix-blend-mode: color-burn;">
+                </span>
+            </a>
+
+            <a href="/" class="logo logo-light">
+                <span class="logo-sm">
+                    <span class="logo-sm">
+                        <img src="{% static 'assets/images/mini-logo-chat-application.png' %}" alt="logo" height="45" style="mix-blend-mode: color-burn;">
+                    </span>
+                </span>
+            </a>
+        </div>
+        <!-- end navbar-brand-box -->
+
+        <!-- Start side-menu nav -->
+        <div class="flex-lg-column my-0 sidemenu-navigation">
+            <ul class="nav nav-pills side-menu-nav" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link {% if sid == 'chat' or sid == 'dashboard' %}active{% endif %}"
+                       id="pills-chat-tab"
+                       href="/">
+                        <i class="ri-discuss-line"></i>
+                        <span class="badge bg-danger fs-11 rounded-pill sidenav-item-badge">{{ total_count }}</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {% if sid == 'profile' %}active{% endif %}" id="pro-user-tab"
+                       href="{% if page_3 %}javascript: void(0);{% else %}/profile/{% endif %}">
+                        <i class="ri-user-3-line"></i>
+                    </a>
+                </li>
+                <li class="nav-item mt-lg-auto">
+                    <a class="nav-link light-dark-mode" href="#">
+                        <i class="ri-moon-line"></i>
+                    </a>
+                </li>
+                <li class="nav-item dropdown profile-user-dropdown">
+                    <a class="nav-link dropdown-toggle bg-light" href="#" role="button" data-bs-toggle="dropdown"
+                       aria-haspopup="true" aria-expanded="false">
+                        <img src="https://cse-aiml.live/static/assets/img/profile_demo.jpg" alt=""
+                             class="profile-user rounded-circle">
+                    </a>
+                    <div class="dropdown-menu">
+                        <a class="dropdown-item d-flex align-items-center justify-content-between" id="pills-user-tab"
+                           href="{% if page_3 %}javascript: void(0);{% else %}/profile/{% endif %}">Profile <i
+                                class="bx bx-user-circle text-muted ms-1"></i>
+                        </a>
+                        {#                        <a class="dropdown-item d-flex align-items-center justify-content-between"#}
+                        {#                           id="pills-setting-tab" data-bs-toggle="pill" href="#pills-user" role="tab">Setting <i#}
+                        {#                                class="bx bx-cog text-muted ms-1"></i></a>#}
+                        <div class="dropdown-divider"></div>
+                        <form method="post" action="/logout/">
+                            {% csrf_token %}
+                            <button type="submit" class="dropdown-item d-flex align-items-center justify-content-between">
+                                Log out <i class="bx bx-log-out-circle text-muted ms-1"></i>
+                            </button>
+                        </form>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <!-- end side-menu nav -->
+    </div>
+    <!-- end left sidebar-menu -->
+
+
+    <!-- Don't -->
+    <!-- start chat-leftsidebar -->
+    <div class="chat-leftsidebar">
+
+        <div class="tab-content">
+
+            {% if page_1 or page_2 or page_4 %}
+                <div class="tab-pane active" id="pills-chat" role="tabpanel" aria-labelledby="pills-chat-tab">
+                    <!-- Start chats content -->
+                    <div>
+                        <div class="px-4 pt-4">
+                            <div class="d-flex align-items-start">
+                                <div class="flex-grow-1">
+                                    <h4 class="mb-4">Messages </h4>
+                                </div>
+                            </div>
+                        </div> <!-- .p-4 -->
+
+                        <div class="chat-room-list" data-simplebar>
+                            <!-- Start chat-message-list -->
+                            <h5 class="mb-3 px-4 mt-4 fs-11 text-muted text-uppercase">Chats</h5>
+
+                            <div class="chat-message-list">
+                                <ul class="list-unstyled chat-list chat-user-list" id="favourite-users">
+                                    <li id="contact-id-1" data-name="favorite"
+                                        {% if other_user.username|lower == request.user.username|lower %}class="active"{% endif %}>
+                                        <a href="{% if other_user.username|lower == request.user.username|lower %}javascript: void(0);{% else %}/{{ request.user.username }}/{% endif %}"
+                                           class="unread-msg-user" id="chats">
+                                            <div class="d-flex align-items-center" bis_skin_checked="1">
+                                                <div class="chat-user-img online align-self-center me-2 ms-0"
+                                                     bis_skin_checked="1">
+                                                    <img src="https://cse-aiml.live/static/assets/img/profile_demo.jpg"
+                                                         class="rounded-circle avatar-xs" alt="admin">
+                                                </div>
+                                                <div class="overflow-hidden me-2" bis_skin_checked="1">
+                                                    <p class="text-truncate chat-username mb-0">
+                                                        To Do List
+                                                    </p>
+                                                    <p class="text-truncate text-muted fs-13 mb-0">
+
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    {% for users in user_obj %}
+                                        <li id="contact-id-1" data-name="favorite"
+                                            {% if other_user.username|lower == users.username|lower %}class="active"{% endif %}>
+                                            <a href="{% if other_user.username|lower == users.username|lower %}javascript: void(0);{% else %}/{{ users.username }}/{% endif %}"
+                                               class="unread-msg-user" id="chats">
+                                                <div class="d-flex align-items-center" bis_skin_checked="1">
+                                                    <div class="chat-user-img online align-self-center me-2 ms-0"
+                                                         bis_skin_checked="1">
+                                                        <img src="https://cse-aiml.live/static/assets/img/profile_demo.jpg"
+                                                             class="rounded-circle avatar-xs" alt="admin">
+                                                    </div>
+                                                    <div class="overflow-hidden me-2" bis_skin_checked="1">
+                                                        <p class="text-truncate chat-username mb-0">
+                                                            {{ users.username }}
+                                                        </p>
+                                                        <p class="text-truncate text-muted fs-13 mb-0">
+
+                                                        </p>
+                                                    </div>
+                                                    <div class="ms-auto" bis_skin_checked="1">
+                                                        <span class="badge badge-soft-danger rounded p-1 fs-10">
+                                                            {{ users.count }}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+
+                            <div class="chat-message-list">
+                                <ul class="list-unstyled chat-list chat-user-list" id="usersList">
+                                </ul>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                    <!-- Start chats content -->
+                </div>
+            {% endif %}
+
+            {% block profile %}
+
+            {% endblock %}
+
+        </div>
+        <!-- end tab content -->
+    </div>
+    <!-- end chat-leftsidebar -->
+    <!-- Don't -->
+    {% block content %}
+    {% endblock %}
+
+
+</div>
+<!-- end  layout wrapper -->
+
+<!-- JAVASCRIPT -->
+<script src="{% static 'assets/libs/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'assets/libs/simplebar/simplebar.min.js' %}"></script>
+<script src="{% static 'assets/libs/node-waves/waves.min.js' %}"></script>
+
+<!-- Modern colorpicker bundle -->
+<script src="{% static 'assets/libs/%40simonwep/pickr/pickr.min.js' %}"></script>
+
+<!-- glightbox js -->
+<script src="{% static 'assets/libs/glightbox/js/glightbox.min.js' %}"></script>
+
+<!-- Swiper JS -->
+<script src="{% static 'assets/libs/swiper/swiper-bundle.min.js' %}"></script>
+
+<!-- fg-emoji-picker JS -->
+<script src="{% static 'assets/libs/fg-emoji-picker/fgEmojiPicker.js' %}"></script>
+
+<!-- page init -->
+<script src="{% static 'assets/js/pages/index.init.js' %}"></script>
+
+<script src="{% static 'assets/js/app.js' %}"></script>
+
+<script src="{% static 'assets/js/jquery.min.js' %}"></script>
+
+{% block script %}
+
+{% endblock %}
+
+</body>
+
+
+</html>

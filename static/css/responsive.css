@@ -1,0 +1,97 @@
+/**
+***************************************************************
+* AUTHOR : NCodeArt
+* PROJECT : NC-Hold Coming-Soon Page
+* Purchase : http://www.ncodeart.com/
+*
+* Copyright 2015-2016 NCodeArt
+* NOTE : This file licensed to NCodeArt - http://themeforest.net/user/ncodeart and it is strictly prohibited to copy or reuse it.
+***************************************************************
+*/
+/**
+*****************************************************************
+* This file is licensed to NCodeArt.
+* it's not allowed to copy or reuse it Copyright NCodeArt 2015-2016
+* NCodeArt : http://www.ncodeart.com/
+*****************************************************************
+*/
+
+
+/*===========================================*/
+/*	DESKTOP LAYOUT 
+/*===========================================*/
+
+@media (min-width: 1200px) {
+
+}
+@media (min-width: 992px) {
+	
+}
+
+/*===========================================*/
+/*	MOBILE & TABLET COMMON
+/*===========================================*/
+@media (min-width: 200px) and (max-width: 991px) {
+	
+}
+
+
+/*===========================================*/
+/*	TABLET
+/*===========================================*/
+@media (min-width: 768px) and (max-width: 991px) {
+	
+	/*----------  TYPOGRAPHY  ----------*/
+	h1, .hd-1, .h1 { font-size: 46px; }
+	h2, .hd-2, .h2 { font-size: 36px; }
+	h3, .hd-3, .h3 { font-size: 26px; }
+	h4, .hd-4, .h4 { font-size: 22px; }
+	h5, .hd-5, .h5 { font-size: 20px; }
+	h6, .hd-6, .h6 { font-size: 18px; }
+
+}
+
+@media (min-width: 768px) and (max-width: 1024px) {
+	
+}
+
+/*===========================================*/
+/*	MOBILE
+/*===========================================*/
+@media (min-width: 200px) and (max-width: 767px) {
+
+	/*----------  TYPOGRAPHY  ----------*/
+	h1, .hd-1, .h1 { font-size: 40px; }
+	h2, .hd-2, .h2 { font-size: 30px; }
+	h3, .hd-3, .h3 { font-size: 24px; }
+	h4, .hd-4, .h4 { font-size: 22px; }
+	h5, .hd-5, .h5 { font-size: 20px; }
+	h6, .hd-6, .h6 { font-size: 18px; }
+	
+}
+@media (min-width: 600px) and (max-width: 767px) {
+}
+@media (min-width: 480px) and (max-width: 599px) {
+
+	/*----------  DEFAULT  ----------*/
+	.countdown-widget .dash {
+		padding: 0 10px;
+	}
+	.countdown-widget .inner-dash {
+		font-size: 26px;
+		min-width: 40px;
+	}
+
+}
+@media (min-width: 200px) and (max-width: 479px) {
+
+	/*----------  CLOCK  ----------*/
+	.countdown-widget .dash {
+		padding: 0 10px;
+	}
+	.countdown-widget .inner-dash {
+		font-size: 24px;
+		min-width: 38px;
+	}
+	
+}
